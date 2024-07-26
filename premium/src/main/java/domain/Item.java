@@ -28,7 +28,7 @@ public class Item {
     private String codigo;
 
     @Column(name = "nome", nullable = false)
-    @NotNull
+    @NotNull (message = "Preencher campo nome do item")
     @Size(min = 1, max = 100)
     private String nome;
 
@@ -36,11 +36,11 @@ public class Item {
     private String descricao;
 
     @Column(name = "preco", nullable = false)
-    @NotNull
+    @NotNull (message = "Preencher o campo preço do item")
     private BigDecimal preco;
 
     @Column(name = "imageUrl", nullable = false)
-    @NotNull
+    @NotNull (message = "Adicionar uma imagem do item")
     private String imageUrl;
 
     @Column(name = "isDeleted", nullable = true)
@@ -50,6 +50,11 @@ public class Item {
 
     public Item (Long idItem){
         this.id = idItem;
+    }
+
+    public void setCodigo(Long interval){
+        String formattedInterval = String.format("%04d", interval);
+        this.codigo = formattedInterval + LocalDateTime.now().getYear();
     }
 
 }

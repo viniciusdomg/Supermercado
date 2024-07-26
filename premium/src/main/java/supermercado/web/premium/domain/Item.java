@@ -1,4 +1,4 @@
-package domain;
+package supermercado.web.premium.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -27,23 +27,23 @@ public class Item {
     @Size(min = 1, max = 50)
     private String codigo;
 
-    @Column(name = "nome", nullable = false)
+    @Column(name = "nome", nullable = false, columnDefinition = "TEXT")
     @NotNull (message = "Preencher campo nome do item")
     @Size(min = 1, max = 100)
     private String nome;
 
-    @Column(name = "descricao", nullable = true)
+    @Column(name = "descricao", nullable = true, columnDefinition = "TEXT")
     private String descricao;
 
     @Column(name = "preco", nullable = false)
     @NotNull (message = "Preencher o campo preço do item")
     private BigDecimal preco;
 
-    @Column(name = "imageUrl", nullable = false)
+    @Column(name = "imageurl", nullable = false, columnDefinition = "TEXT")
     @NotNull (message = "Adicionar uma imagem do item")
     private String imageUrl;
 
-    @Column(name = "isDeleted", nullable = true)
+    @Column(name = "isdeleted", nullable = true)
     private LocalDateTime isDeleted;
 
     public Item() {}

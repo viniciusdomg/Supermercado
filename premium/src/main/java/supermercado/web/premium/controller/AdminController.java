@@ -1,12 +1,12 @@
-package controller;
+package supermercado.web.premium.controller;
 
-import domain.Item;
+import supermercado.web.premium.domain.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import service.ItemCustomService;
+import supermercado.web.premium.service.*;
 
 import java.util.List;
 

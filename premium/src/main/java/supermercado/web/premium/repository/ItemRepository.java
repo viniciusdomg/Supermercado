@@ -1,6 +1,6 @@
-package repository;
+package supermercado.web.premium.repository;
 
-import domain.Item;
+import supermercado.web.premium.domain.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

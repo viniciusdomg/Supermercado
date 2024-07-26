@@ -1,6 +1,6 @@
-package controller;
+package supermercado.web.premium.controller;
 
-import domain.Item;
+import supermercado.web.premium.domain.Item;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletResponse;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import service.ItemCustomService;
+import supermercado.web.premium.service.ItemCustomService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

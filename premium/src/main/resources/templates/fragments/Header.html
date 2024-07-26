@@ -17,6 +17,7 @@
         <div class="d-flex align-items-center">
             <div style="display: flex; flex-direction: column; align-items: center; margin-right: 30px;">
                 <img src="/templates/assets/user.png" alt="LogoUser" style="width: 20px; height: 20px;">
+                <!--O nome do usuario tem que mudar de acordo do o nome que foi cadastrado-->
                 <span style="margin-top: 5px; font-size: 12px; color: #fff;">User</span>
             </div>
             <div style="display: flex; flex-direction: column; align-items: center; margin-right: 300px;">
@@ -32,5 +33,7 @@
         </div>
     </div>
 </nav>
+<div th:insert="fragments/Footer.html :: footer" class="p-0" ></div>
 </body>
 </html>
+

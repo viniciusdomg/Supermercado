@@ -70,13 +70,12 @@ public class AdminController {
     public String carregaEdit(@PathVariable("id") Long id, Model model){
         Item item = customService.searchItemById(id);
         model.addAttribute("item", item);
-        System.out.println(item.getDataDeValidade());
         return "EditarProduto";
     }
 
     @GetMapping(value = "/deletar/{id}")
     public String carregaDelete(@PathVariable("id") Long id, Model model){
         model.addAttribute("item", customService.searchItemById(id));
-        return "";
+        return "ListaProdutos";
     }
 }

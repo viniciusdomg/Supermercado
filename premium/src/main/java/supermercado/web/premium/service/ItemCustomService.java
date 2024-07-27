@@ -28,8 +28,9 @@ public class ItemCustomService {
 
     @Transactional
     public Item saveItem(Item item){
-        item.setCodigo(repository.getNextInterval());
-
+        if(item.getCodigo()!=null) {
+            item.setCodigo(repository.getNextInterval());
+        }
         return repository.save(item);
     }
 

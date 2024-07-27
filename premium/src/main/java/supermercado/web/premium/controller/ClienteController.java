@@ -17,6 +17,6 @@ public class ClienteController {
     @GetMapping(value = "/produtos")
     public String carregaItens(Model model){
         model.addAttribute("itens", customService.listaItens());
-        return "VisualizaProdutos";
+        return "principal";
     }
 }

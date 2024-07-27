@@ -11,6 +11,6 @@ public interface ItemRepository extends JpaRepository <Item, Long> {
     @Query("SELECT i FROM Item i WHERE i.id = ?1")
     Item searchById(Long id);
 
-    @Query(value = "SELECT nextval('item_sequence')", nativeQuery = true)
+    @Query(value = "SELECT nextval('codigo_seq')", nativeQuery = true)
     Long getNextInterval();
 }

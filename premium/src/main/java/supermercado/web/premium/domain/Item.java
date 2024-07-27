@@ -32,6 +32,9 @@ public class Item {
     @Size(min = 1, max = 100)
     private String nome;
 
+    @Column (name = "quantidade", nullable = true)
+    private Integer quantidade;
+
     @Column(name = "descricao", nullable = true, columnDefinition = "TEXT")
     private String descricao;
 

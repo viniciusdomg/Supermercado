@@ -28,9 +28,6 @@
                 <div class="col-md-3">
                     <div class="header-logo">
                         <p style="color: white; font-size: 50px; font-weight: bold;">PREMIUM</p>
-                        <a href="#" class="logo">
-                            <img src="./img/logo.png" alt="">
-                        </a>
                     </div>
                 </div>
                 <!-- Barra de pesquisa -->
@@ -39,8 +36,9 @@
                         <form>
                             <select class="input-select">
                                 <option value="0">Categorias</option>
-                                <option value="1">Category 01</option>
-                                <option value="1">Category 02</option>
+                                <option value="1">Frutas</option>
+                                <option value="2">Verduras</option>
+                                <option value="3">Carnes</option>
                             </select>
                             <input class="input" placeholder="">
                             <button class="search-btn" >Buscar</button>
@@ -54,7 +52,6 @@
                             <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                 <i class="fa fa-shopping-cart"></i>
                                 <span>Carrinho</span>
-                                <!-- Atualizar itens carrinho -->
                                 <div class="qty" th:text="${quantidadeCarrinho}">0</div>
                             </a>
                         </div>

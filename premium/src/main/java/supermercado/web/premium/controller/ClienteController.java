@@ -25,8 +25,16 @@ public class ClienteController {
     ItemCustomService customService;
 
     @GetMapping(value = "/produtos")
-    public String carregaItens(Model model, HttpServletResponse response){
+    public String carregaItens(Model model, HttpServletResponse response, HttpSession session){
         model.addAttribute("itens", customService.itensValidos());
+        Map<Item, Integer> carrinho = (Map<Item, Integer>) session.getAttribute("carrinho");
+        int quantidadeTotal = 0;
+        if (carrinho != null) {
+            for (Integer quantidade : carrinho.values()) {
+                quantidadeTotal += quantidade;
+            }
+        }
+        model.addAttribute("quantidadeCarrinho", quantidadeTotal);
         Cookie visitaCookie = new Cookie("visita", String.valueOf(System.currentTimeMillis()));
         visitaCookie.setMaxAge(24 * 60 * 60);
         visitaCookie.setPath("/");

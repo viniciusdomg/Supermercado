@@ -16,7 +16,7 @@ public class ClienteController {
 
     @GetMapping(value = "/produtos")
     public String carregaItens(Model model){
-        model.addAttribute("itens", customService.listaItens());
+        model.addAttribute("itens", customService.itensValidos());
         return "principal";
     }
 }

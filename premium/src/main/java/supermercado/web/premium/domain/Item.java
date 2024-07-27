@@ -8,7 +8,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 @AllArgsConstructor
 @Getter
@@ -42,12 +44,16 @@ public class Item {
     @NotNull (message = "Preencher o campo preço do item")
     private BigDecimal preco;
 
-    @Column(name = "imageurl", nullable = false, columnDefinition = "TEXT")
+    @Column (name = "data_de_validade", nullable = false)
+    @NotNull (message = "É preciso adicionar a data de validade")
+    private LocalDate dataDeValidade;
+
+    @Column(name = "image_url", nullable = false, columnDefinition = "TEXT")
     @NotNull (message = "Adicionar uma imagem do item")
     private String imageUrl;
 
-    @Column(name = "isdeleted", nullable = true)
-    private LocalDateTime isDeleted;
+    @Column(name = "is_deleted", nullable = true)
+    private Long isDeleted;
 
     public Item() {}
 
@@ -60,4 +66,7 @@ public class Item {
         this.codigo = formattedInterval + LocalDateTime.now().getYear();
     }
 
+    public void setIsDeleted(LocalDateTime data){
+        this.isDeleted = data.toEpochSecond(ZoneOffset.UTC);
+    }
 }

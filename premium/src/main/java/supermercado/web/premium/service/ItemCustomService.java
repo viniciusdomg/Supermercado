@@ -19,6 +19,10 @@ public class ItemCustomService {
         return repository.findAll();
     }
 
+    public List<Item> itensValidos(){
+        return repository.itensNotDeleted();
+    }
+
     public Optional<Item> searchItemById(Long id){
         return repository.findById(id);
     }

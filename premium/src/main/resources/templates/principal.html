@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<title>Electro - HTML Ecommerce Template</title>
+		<title>Premium - Mercato</title>
 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 		<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"/>
 		<link type="text/css" rel="stylesheet" href="/css/slick.css"/>
@@ -125,59 +125,60 @@
 			</div>
 		</div>
 
-
-
-		<div class="section">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="section-title">
-							<h3 class="title">Itens</h3>
-							<div class="section-nav">
-							</div>
-						</div>
+	<div class="section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="section-title">
+						<h3 class="title">Itens</h3>
+						<div class="section-nav"></div>
 					</div>
+				</div>
 
-					<!-- Products tab & slick -->
-					<div class="col-md-12">
-						<div class="row">
-							<div class="products-tabs">
-								<!-- tab -->
-								<div id="tab2" class="tab-pane fade in active">
-									<div class="products-slick" data-nav="#slick-nav-2">
-										<!-- product -->
-										<div class="product">
-											<div class="product-img">
-												<img src="./img/product06.png" alt="">
-												<div class="product-label">
-													<span class="sale">-30%</span>
-													<span class="new">NEW</span>
-												</div>
-											</div>
-											<div class="product-body">
-												<h3 class="product-name"><a href="#">Nome</a></h3>
-												<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-												<div class="product-rating">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-												</div>
-											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+				<!-- Products tab & slick -->
+				<div class="col-md-12">
+					<div class="row">
+						<div class="products-tabs">
+							<!-- tab -->
+							<div id="tab2" class="tab-pane fade in active">
+								<div class="products-slick" data-nav="#slick-nav-2">
+									<!-- product -->
+									<div class="product" th:each="item : ${itens}">
+										<div class="product-img">
+											<img th:src="@{${item.imageUrl}}" alt="Imagem do Produto">
+											<div class="product-label">
+												<!-- Exemplo de labels, ajuste conforme necessário -->
+<!--												<span th:if="${item.desconto != null}" class="sale" th:text="'-' + ${item.desconto} + '%'"></span>-->
+												<span class="new">NEW</span>
 											</div>
 										</div>
+										<div class="product-body">
+											<h3 class="product-name"><a href="#" th:text="${item.nome}">Nome</a></h3>
+											<h4 class="product-price" th:text="${item.preco}">Preço</h4>
+											<!-- Exemplo de preço antigo, ajuste conforme necessário -->
+<!--											<del class="product-old-price" th:if="${item.precoAntigo != null}" th:text="${item.precoAntigo}"></del>-->
+											<div class="product-rating">
+												<!-- Exemplo de rating estático, ajuste conforme necessário -->
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+											</div>
+										</div>
+										<div class="add-to-cart">
+											<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+										</div>
 									</div>
-									<div id="slick-nav-2" class="products-slick-nav"></div>
 								</div>
+								<div id="slick-nav-2" class="products-slick-nav"></div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 	<div th:insert="fragments/Footer.html :: #footer"></div>
 
 		<!-- jQuery Plugins -->

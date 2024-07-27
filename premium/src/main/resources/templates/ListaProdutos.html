@@ -34,15 +34,17 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>001</td>
-                <td>Produto A</td>
-                <td>10</td>
-                <td>Descrição do Produto A</td>
+            <tr th:each="item : ${itens}">
+                <td th:text="${item.codigo}"></td>
+                <td th:text="${item.nome}"></td>
+                <td th:text="${item.quantidade}"></td>
+                <td th:text="${item.descricao}"></td>
                 <td class="action-icons">
+                    <!-- Aqui você pode adicionar botões de ação como editar e excluir -->
+                    <a th:href="@{/editar/{id}(id=${item.id})}" class="btn btn-sm btn-primary">Editar</a>
+                    <a th:href="@{/deletar/{id}(id=${item.id})}" class="btn btn-sm btn-danger">Deletar</a>
                 </td>
             </tr>
-            <!-- Mais linhas de produtos podem ser adicionadas aqui -->
             </tbody>
         </table>
     </div>

@@ -8,30 +8,30 @@
 <body style="background-color: #333;">
 <div class="container mt-3" style="max-width: 600px; margin-top: 15rem">
     <div class="text-light p-4 rounded border border-secondary" style="background: white">
-        <form>
-            <div class="mb-1">
-                <label class="form-label" style="color: black">Codigo</label>
-                <input type="number" class="form-control form-control-sm">
-            </div>
+        <form th:action="@{/interno/salvar}" th:object="${item}" method="post" enctype="multipart/form-data">
             <div class="mb-1">
                 <label class="form-label" style="color: black">Nome</label>
-                <input type="text" class="form-control form-control-sm" aria-describedby="nomeHelp">
+                <input type="text" class="form-control form-control-sm" th:field="*{nome}" aria-describedby="nomeHelp">
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label" style="color: black" >Descrição</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <label for="exampleFormControlTextarea1" class="form-label" style="color: black">Descrição</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" th:field="*{descricao}"></textarea>
             </div>
             <div class="mb-1">
                 <label class="form-label" style="color: black">Preço</label>
-                <input type="number" class="form-control form-control-sm">
+                <input type="number" class="form-control form-control-sm" th:field="*{preco}" step="0.01">
+            </div>
+            <div class="mb-1">
+                <label class="form-label" style="color: black">Data de Validade</label>
+                <input type="date" class="form-control form-control-sm" th:field="*{dataDeValidade}">
             </div>
             <div class="mb-3">
                 <label for="formFileMultiple" class="form-label" style="color: black">Imagem</label>
-                <input class="form-control" type="file" id="formFileMultiple" multiple>
+                <input class="form-control" type="file" id="formFileMultiple" name="file" multiple>
             </div>
             <button type="submit" class="btn btn-primary btn-lg w-100">Cadastrar</button>
+        </form>
     </div>
-    </form>
 </div>
 </body>
 </html>

@@ -18,6 +18,16 @@
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
+		<style>
+			.alert {
+				opacity: 1;
+				transition: opacity 1s ease-out;
+			}
+
+			.alert.fade-out {
+				opacity: 0;
+			}
+		</style>
 
     </head>
 
@@ -50,6 +60,10 @@
 			</div>
 		</div>
 	</nav>
+
+	<div id="mensagem" th:if="${mensagem}" class="alert alert-info">
+		<p th:text="${mensagem}"></p>
+	</div>
 
 		<!--- Barras em baixo da de pesquisa-->
 		<div class="section">
@@ -102,30 +116,19 @@
 					</div>
 				</div>
 
-				<!-- Products tab & slick -->
 				<div class="col-md-12">
 					<div class="row">
 						<div class="products-tabs">
-							<!-- tab -->
 							<div id="tab2" class="tab-pane fade in active">
 								<div class="products-slick" data-nav="#slick-nav-2">
-									<!-- product -->
 									<div class="product" th:each="item : ${itens}">
 										<div class="product-img">
 											<img th:src="@{${item.imageUrl}}" alt="Imagem do Produto">
-											<div class="product-label">
-												<!-- Exemplo de labels, ajuste conforme necessário -->
-<!--												<span th:if="${item.desconto != null}" class="sale" th:text="'-' + ${item.desconto} + '%'"></span>-->
-												<span class="new">NEW</span>
-											</div>
 										</div>
 										<div class="product-body">
 											<h3 class="product-name"><a href="#" th:text="${item.nome}">Nome</a></h3>
 											<h4 class="product-price" th:text="${item.preco}">Preço</h4>
-											<!-- Exemplo de preço antigo, ajuste conforme necessário -->
-<!--											<del class="product-old-price" th:if="${item.precoAntigo != null}" th:text="${item.precoAntigo}"></del>-->
 											<div class="product-rating">
-												<!-- Exemplo de rating estático, ajuste conforme necessário -->
 												<i class="fa fa-star"></i>
 												<i class="fa fa-star"></i>
 												<i class="fa fa-star"></i>
@@ -157,6 +160,18 @@
 	<script src="/js/nouislider.min.js"></script>
 	<script src="/js/jquery.zoom.min.js"></script>
 	<script src="/js/main.js"></script>
-
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			var mensagemElement = document.getElementById('mensagem');
+			if (mensagemElement) {
+				setTimeout(function() {
+					mensagemElement.classList.add('fade-out');
+				}, 3000);
+				setTimeout(function() {
+					mensagemElement.style.display = 'none';
+				}, 3500);
+			}
+		});
+	</script>
 </body>
 </html>

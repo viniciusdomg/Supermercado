@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import supermercado.web.premium.domain.Item;
 import supermercado.web.premium.service.ItemCustomService;
 
@@ -59,12 +60,36 @@ public class ClienteController {
         return "redirect:/publico/produtos";
     }
     @GetMapping(value = "/carrinho")
-    public String carregaCarrinho(Model model, HttpSession session) {
+    public String carregaCarrinho(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
         Map<Item, Integer> carrinho = (Map<Item, Integer>) session.getAttribute("carrinho");
         if (carrinho == null || carrinho.isEmpty()) {
+            redirectAttributes.addFlashAttribute("mensagem", "Nenhum item no carrinho.");
             return "redirect:/publico/produtos";
         }
         model.addAttribute("carrinho", carrinho);
         return "Carrinho";
+    }
+    @GetMapping(value = "/removerCarrinho/{id}")
+    public String removerItemDoCarrinho(@PathVariable("id") Long id, HttpSession session) {
+        Item item = customService.searchItemById(id);
+        if (item != null) {
+            Map<Item, Integer> carrinho = (Map<Item, Integer>) session.getAttribute("carrinho");
+            if (carrinho != null && carrinho.containsKey(item)) {
+                int quantidadeAtual = carrinho.get(item);
+                if (quantidadeAtual > 1) {
+                    carrinho.put(item, quantidadeAtual - 1);
+                } else {
+                    carrinho.remove(item);
+                }
+                session.setAttribute("carrinho", carrinho);
+            }
+        }
+        return "redirect:/publico/carrinho";
+    }
+
+    @GetMapping(value = "/finalizarCompra")
+    public String finalizaCompra(HttpSession session){
+        session.invalidate();
+        return "redirect:/publico/produtos";
     }
 }

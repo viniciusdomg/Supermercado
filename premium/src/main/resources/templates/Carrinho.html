@@ -34,7 +34,6 @@
             </div>
         </div>
     </div>
-    <!-- Pesquisar-->
     <nav id="navigation">
         <div class="container">
             <div id="responsive-nav">
@@ -46,7 +45,6 @@
         </div>
     </nav>
 
-    <!--- Barras em baixo da de pesquisa-->
     <div class="section">
         <div class="container">
             <div class="row">
@@ -102,18 +100,12 @@
                         <div class="products-tabs">
                             <div id="tab2" class="tab-pane fade in active">
                                 <div class="products-slick" data-nav="#slick-nav-2">
-                                    <!-- Iterar sobre os itens do carrinho -->
                                     <div th:each="entry : ${carrinho}">
                                         <div class="product">
                                             <div class="product-img">
-                                                <!-- Verificar se o item tem a URL da imagem -->
                                                 <img th:src="@{${entry.key.imageUrl}}" alt="Imagem do Produto">
-                                                <div class="product-label">
-                                                    <span class="new">NEW</span>
-                                                </div>
                                             </div>
                                             <div class="product-body">
-                                                <!-- Verificar se o item tem nome e preço -->
                                                 <h3 class="product-name"><a href="#" th:text="${entry.key.nome}">Nome</a></h3>
                                                 <h4 class="product-price" th:text="${entry.key.preco}">Preço</h4>
                                                 <div class="product-rating">
@@ -124,14 +116,15 @@
                                                     <i class="fa fa-star"></i>
                                                 </div>
                                                 <div class="product-quantity">
-                                                    <!-- Exibir a quantidade do item -->
                                                     <span th:text="'Quantidade: ' + ${entry.value}"></span>
                                                 </div>
                                             </div>
                                             <div class="add-to-cart">
-                                                <button class="add-to-cart-btn">
-                                                    <i class="fa fa-shopping-cart"></i> Retirar item
-                                                </button>
+                                                <a th:href="@{/publico/removerCarrinho/{id}(id=${entry.key.id})}">
+                                                    <button class="add-to-cart-btn">
+                                                        <i class="fa fa-shopping-cart"></i> Retirar item
+                                                    </button>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -139,6 +132,11 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div>
+                        <a th:href="@{/publico/finalizarCompra}">
+                            <button class="btn-success">Finalizar Compra</button>
+                        </a>
                     </div>
                 </div>
             </div>

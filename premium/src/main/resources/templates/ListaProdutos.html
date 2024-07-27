@@ -21,7 +21,7 @@
     <div class="content-wrapper">
         <h2 class="text-center mb-4">Lista de Produtos</h2>
         <div class="d-flex justify-content-end mb-3">
-            <a href="#" class="btn btn-danger">Itens Deletados</a>
+            <a th:href="@{/interno/deletados}" class="btn btn-danger">Itens Deletados</a>
         </div>
         <table class="table table-striped">
             <thead>
@@ -29,6 +29,7 @@
                 <th scope="col">Código</th>
                 <th scope="col">Nome</th>
                 <th scope="col">Quantidade</th>
+                <th scope="col">Data de Validade</th>
                 <th scope="col">Descrição</th>
                 <th scope="col">Ações</th>
             </tr>
@@ -38,11 +39,12 @@
                 <td th:text="${item.codigo}"></td>
                 <td th:text="${item.nome}"></td>
                 <td th:text="${item.quantidade}"></td>
+                <td th:text="${#temporals.format(item.dataDeValidade, 'dd MMM yyyy')}"></td>
                 <td th:text="${item.descricao}"></td>
                 <td class="action-icons">
                     <!-- Aqui você pode adicionar botões de ação como editar e excluir -->
-                    <a th:href="@{/editar/{id}(id=${item.id})}" class="btn btn-sm btn-primary">Editar</a>
-                    <a th:href="@{/deletar/{id}(id=${item.id})}" class="btn btn-sm btn-danger">Deletar</a>
+                    <a th:href="@{/interno/editar/{id}(id=${item.id})}" class="btn btn-sm btn-primary">Editar</a>
+                    <a th:href="@{/interno/deletar/{id}(id=${item.id})}" class="btn btn-sm btn-danger">Deletar</a>
                 </td>
             </tr>
             </tbody>

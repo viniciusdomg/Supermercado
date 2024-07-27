@@ -30,9 +30,7 @@ public class AdminController {
 
     @GetMapping(value = "/produtos")
     public String carregaProdutos(Model model){
-        List<Item> itens = customService.itensValidos();
-        System.out.println("Itens carregados: " + itens);
-        model.addAttribute("itens", itens);
+        model.addAttribute("itens", customService.itensValidos());
        return "ListaProdutos";
     }
 
@@ -64,13 +62,16 @@ public class AdminController {
      */
     @GetMapping(value = "/deletados")
     public String carregaDeletados(Model model){
+        model.addAttribute("itens", customService.listaItens());
         return "ItensDeletados";
     }
 
     @GetMapping(value = "/editar/{id}")
     public String carregaEdit(@PathVariable("id") Long id, Model model){
-        model.addAttribute("item", customService.searchItemById(id));
-        return "";
+        Item item = customService.searchItemById(id);
+        model.addAttribute("item", item);
+        System.out.println(item.getDataDeValidade());
+        return "EditarProduto";
     }
 
     @GetMapping(value = "/deletar/{id}")

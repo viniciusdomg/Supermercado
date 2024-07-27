@@ -65,7 +65,6 @@ public class Item {
         String formattedInterval = String.format("%04d", interval);
         this.codigo = formattedInterval + LocalDateTime.now().getYear();
     }
-
     public void setIsDeleted(LocalDateTime data){
         this.isDeleted = data.toEpochSecond(ZoneOffset.UTC);
     }

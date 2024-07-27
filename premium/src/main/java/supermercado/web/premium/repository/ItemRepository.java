@@ -18,4 +18,7 @@ public interface ItemRepository extends JpaRepository <Item, Long> {
 
     @Query("SELECT i FROM Item i WHERE i.isDeleted IS NULL")
     List<Item> itensNotDeleted();
+
+    @Query("SELECT i FROM Item i WHERE i.isDeleted IS NOT NULL")
+    List<Item> itensDeleted();
 }

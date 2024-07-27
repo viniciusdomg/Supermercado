@@ -9,21 +9,28 @@
 <div class="container mt-3" style="max-width: 600px">
     <div class="text-light p-4 rounded border border-secondary" style="background: white">
         <form th:action="@{/interno/salvar}" th:object="${item}" method="post" enctype="multipart/form-data">
+            <div class="mb-3" th:if="${item.imageUrl}">
+                <label class="form-label">Imagem</label>
+                <div class="mb-2">
+                    <img th:src="@{|${item.imageUrl}|}" alt="Imagem do Item" class="img-fluid" style="max-width: 200px;">
+                </div>
+            </div>
             <div class="mb-1">
                 <label class="form-label" style="color: black">Nome</label>
-                <input type="text" class="form-control form-control-sm" th:field="*{nome}" aria-describedby="nomeHelp">
+                <input type="text" class="form-control form-control-sm" th:value="*{nome}" th:field="*{nome}" aria-describedby="nomeHelp">
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label" style="color: black">Descrição</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" th:field="*{descricao}"></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" th:value="*{descricao}" th:field="*{descricao}"></textarea>
             </div>
             <div class="mb-1">
                 <label class="form-label" style="color: black">Preço</label>
-                <input type="number" class="form-control form-control-sm" th:field="*{preco}" step="0.01">
+                <input type="number" class="form-control form-control-sm" th:value="*{preco}" th:field="*{preco}" step="0.01">
             </div>
             <div class="mb-1">
                 <label class="form-label" style="color: black">Data de Validade</label>
-                <input type="date" class="form-control form-control-sm" th:field="*{dataDeValidade}">
+                <p class="text-black" th:text="${#temporals.format(item.dataDeValidade, 'dd MMM yyyy')}" ></p>
+                <input type="date" class="form-control form-control-sm" th:value="*{dataDeValidade}" th:field="*{dataDeValidade}">
             </div>
             <div class="mb-3">
                 <label for="formFileMultiple" class="form-label" style="color: black">Imagem</label>

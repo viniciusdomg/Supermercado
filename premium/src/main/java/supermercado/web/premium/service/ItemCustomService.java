@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import supermercado.web.premium.repository.ItemRepository;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ItemCustomService {
@@ -16,15 +15,15 @@ public class ItemCustomService {
     private ItemRepository repository;
 
     public List<Item> listaItens (){
-        return repository.findAll();
+        return repository.itensDeleted();
     }
 
     public List<Item> itensValidos(){
         return repository.itensNotDeleted();
     }
 
-    public Optional<Item> searchItemById(Long id){
-        return repository.findById(id);
+    public Item searchItemById(Long id){
+        return repository.searchById(id);
     }
 
     @Transactional

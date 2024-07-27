@@ -27,7 +27,17 @@ public class AdminController {
     @GetMapping(value = "/produtos")
     public String carregaProdutos(Model model){
         model.addAttribute("itens", customService.listaItens());
-       return "VisualizaProdutos";
+       return "ListaProdutos";
+    }
+
+    @GetMapping(value = "/cadastro")
+    public String carregaCadastro(Model model){
+        return "CadastraProduto";
+    }
+
+    @GetMapping(value = "/deletados")
+    public String carregaDeletados(Model model){
+        return "ItensDeletados";
     }
 
 }

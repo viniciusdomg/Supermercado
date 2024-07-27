@@ -9,41 +9,45 @@
     body {
         margin: 0;
         height: 100vh;
-        background: linear-gradient(to bottom, #003366, #2082c5); /* Gradiente do mais escuro para o mais claro */
+        background: linear-gradient(to bottom, #003366, #2082c5);
     }
 </style>
 <body style="background-color: #2082c5">
 <div class="container mt-3" style="max-width: 600px">
     <div class="text-light p-4 rounded border border-secondary" style="background: white">
+        <a th:href="@{/interno/produtos}"><button class="border-0 bg-transparent"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708z"/>
+        </svg></button></a>
         <form th:action="@{/interno/salvar}" th:object="${item}" method="post" enctype="multipart/form-data">
             <div class="mb-3" th:if="${item.imageUrl}">
                 <label class="form-label">Imagem</label>
                 <div class="mb-2">
                     <img th:src="@{|${item.imageUrl}|}" alt="Imagem do Item" class="img-fluid" style="max-width: 200px;">
                 </div>
+                <input type="number" class="form-control form-control-sm " th:value="*{id}" th:field="*{id}" aria-describedby="nomeHelp" required>
             </div>
             <div class="mb-1">
                 <label class="form-label" style="color: black">Nome</label>
-                <input type="text" class="form-control form-control-sm" th:value="*{nome}" th:field="*{nome}" aria-describedby="nomeHelp">
+                <input type="text" class="form-control form-control-sm" th:value="*{nome}" th:field="*{nome}" aria-describedby="nomeHelp" required>
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label" style="color: black">Descrição</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" th:value="*{descricao}" th:field="*{descricao}"></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" th:value="*{descricao}" th:field="*{descricao}" required></textarea>
             </div>
             <div class="mb-1">
                 <label class="form-label" style="color: black">Preço</label>
-                <input type="number" class="form-control form-control-sm" th:value="*{preco}" th:field="*{preco}" step="0.01">
+                <input type="number" class="form-control form-control-sm" th:value="*{preco}" th:field="*{preco}" step="0.01" required>
             </div>
             <div class="mb-1">
                 <label class="form-label" style="color: black">Data de Validade</label>
                 <p class="text-black" th:text="${#temporals.format(item.dataDeValidade, 'dd MMM yyyy')}" ></p>
-                <input type="date" class="form-control form-control-sm" th:value="*{dataDeValidade}" th:field="*{dataDeValidade}">
+                <input type="date" class="form-control form-control-sm" th:value="${item.dataDeValidade}" th:field="*{dataDeValidade}" required>
             </div>
             <div class="mb-3">
                 <label for="formFileMultiple" class="form-label" style="color: black">Imagem</label>
                 <input class="form-control" type="file" id="formFileMultiple" name="file" multiple>
             </div>
-            <button type="submit" class="btn btn-primary btn-lg w-100">Cadastrar</button>
+            <button type="submit" class="btn btn-primary btn-lg w-100">Salvar</button>
         </form>
     </div>
 </div>

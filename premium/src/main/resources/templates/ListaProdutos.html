@@ -20,9 +20,24 @@
         .action-icons {
             gap: 10px;
         }
+         .alert {
+             opacity: 1;
+             transition: opacity 1s ease-out;
+             height: auto;
+         }
+
+        .alert.fade-out {
+            opacity: 0;
+        }
     </style>
 </head>
 <body style="background-color: #2082c5">
+<div id="mensagem" th:if="${mensagem}" class="alert alert-success">
+    <strong><p th:text="${mensagem}"></p></strong>
+</div>
+<div id="mensagem-excluir" th:if="${mensagem_excluir}" class="alert alert-danger">
+    <strong><p th:text="${mensagem_excluir}"></p></strong>
+</div>
 <div class="container mt-5">
     <div class="content-wrapper">
         <h2 class="text-center mb-4">Lista de Produtos</h2>
@@ -34,7 +49,6 @@
             <tr>
                 <th scope="col">Código</th>
                 <th scope="col">Nome</th>
-                <th scope="col">Quantidade</th>
                 <th scope="col">Data de Validade</th>
                 <th scope="col">Descrição</th>
                 <th scope="col">Ações</th>
@@ -44,18 +58,47 @@
             <tr th:each="item : ${itens}">
                 <td th:text="${item.codigo}"></td>
                 <td th:text="${item.nome}"></td>
-                <td th:text="${item.quantidade}"></td>
                 <td th:text="${#temporals.format(item.dataDeValidade, 'dd MMM yyyy')}"></td>
                 <td th:text="${item.descricao}"></td>
                 <td class="action-icons">
-                    <!-- Aqui você pode adicionar botões de ação como editar e excluir -->
                     <a th:href="@{/interno/editar/{id}(id=${item.id})}" class="btn btn-sm btn-primary">Editar</a>
                     <a th:href="@{/interno/deletar/{id}(id=${item.id})}" class="btn btn-sm btn-danger">Deletar</a>
                 </td>
             </tr>
             </tbody>
         </table>
+        <div>
+            <a th:href="@{/interno/cadastro}">
+                <button class="icon-link-hover border-0 bg-transparent"><svg xmlns="http://www.w3.org/2000/svg" width="20" color="Green" height="20" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
+                    <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z"/>
+                    <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                </svg></button>
+            </a>
+        </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var mensagemElement = document.getElementById('mensagem');
+        if (mensagemElement) {
+            setTimeout(function() {
+                mensagemElement.classList.add('fade-out');
+            }, 3000);
+            setTimeout(function() {
+                mensagemElement.style.display = 'none';
+            }, 3500);
+        }
+        var mensagemExcluirElement = document.getElementById("mensagem-excluir")
+        if (mensagemExcluirElement) {
+            setTimeout(function() {
+                mensagemExcluirElement.classList.add('fade-out');
+            }, 3000);
+            setTimeout(function() {
+                mensagemExcluirElement.style.display = 'none';
+            }, 3500);
+        }
+    });
+</script>
 </body>
 </html>

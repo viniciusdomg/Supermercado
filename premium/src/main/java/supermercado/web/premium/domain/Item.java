@@ -25,8 +25,7 @@ public class Item {
     @SequenceGenerator(name = "item_seq", sequenceName = "item_sequence", allocationSize = 1)
     private Long id;
 
-    @Column(name = "codigo", nullable = false, unique = true)
-    @NotNull
+    @Column(name = "codigo", nullable = false, unique = true, columnDefinition = "VARCHAR(50)")
     @Size(min = 1, max = 50)
     private String codigo;
 
@@ -49,8 +48,7 @@ public class Item {
     @NotNull (message = "É preciso adicionar a data de validade")
     private LocalDate dataDeValidade;
 
-    @Column(name = "image_url", nullable = false, columnDefinition = "TEXT")
-    @NotNull (message = "Adicionar uma imagem do item")
+    @Column(name = "image_url", nullable = true, columnDefinition = "TEXT")
     private String imageUrl;
 
     @Column(name = "is_deleted", nullable = true)
@@ -67,7 +65,16 @@ public class Item {
         this.codigo = formattedInterval + LocalDateTime.now().getYear();
     }
     public void setIsDeleted(LocalDateTime data){
-        this.isDeleted = data.toEpochSecond(ZoneOffset.UTC);
+        if(data == null){
+            this.isDeleted = null;
+        }else {
+            this.isDeleted = data.toEpochSecond(ZoneOffset.UTC);
+        }
+    }
+
+    @Override
+    public String toString(){
+        return "Item: nome: "+this.nome +"descricao: "+ this.descricao+ "codigo: "+ this.codigo + "preço: " + this.preco;
     }
 
     @Override

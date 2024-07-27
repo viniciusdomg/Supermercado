@@ -3,6 +3,7 @@ package supermercado.web.premium.controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import supermercado.web.premium.domain.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,13 +47,27 @@ public class AdminController {
     }
 
     @PostMapping(value = "/salvar")
-    public ModelAndView salvarItem(@ModelAttribute Item item, @RequestParam("file") MultipartFile file){
-        item.setImageUrl("/images/"+file.getOriginalFilename());
-        fileService.save(file);
-        customService.saveItem(item);
-        ModelAndView modelAndView = new ModelAndView("ListaProdutos");
-        modelAndView.addObject("itens", customService.listaItens());
-        return modelAndView;
+    public String salvarItem(@ModelAttribute Item item, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes){
+        System.out.println(item.getId());
+        Item newItem = customService.searchItemById(item.getId());
+        if(!file.isEmpty()) {
+            item.setImageUrl("/images/" + file.getOriginalFilename());
+            fileService.save(file);
+        }
+        if (newItem != null) {
+            newItem.setNome(item.getNome());
+            newItem.setDescricao(item.getDescricao());
+            newItem.setPreco(item.getPreco());
+            newItem.setDataDeValidade(item.getDataDeValidade());
+            if(item.getImageUrl() != null)
+                newItem.setImageUrl(item.getImageUrl());
+            customService.saveItem(newItem);
+            redirectAttributes.addFlashAttribute("mensagem", "Produto alterado com sucesso");
+        }else {
+            customService.saveItem(item);
+            redirectAttributes.addFlashAttribute("mensagem", "Produto adicionando com sucesso");
+        }
+        return "redirect:/interno/produtos";
     }
 
     /**
@@ -70,12 +85,15 @@ public class AdminController {
     public String carregaEdit(@PathVariable("id") Long id, Model model){
         Item item = customService.searchItemById(id);
         model.addAttribute("item", item);
+        System.out.println(item.getId());
         return "EditarProduto";
     }
 
     @GetMapping(value = "/deletar/{id}")
-    public String carregaDelete(@PathVariable("id") Long id, Model model){
-        model.addAttribute("item", customService.searchItemById(id));
-        return "ListaProdutos";
+    public String carregaDelete(@PathVariable("id") Long id, RedirectAttributes redirectAttributes){
+        redirectAttributes.addFlashAttribute("mensagem_excluir", "Produto deletado");
+        System.out.println(id);
+        customService.removeItem(id);
+        return "redirect:/interno/produtos";
     }
 }

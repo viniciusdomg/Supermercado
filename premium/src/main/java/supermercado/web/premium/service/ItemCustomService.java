@@ -28,9 +28,12 @@ public class ItemCustomService {
 
     @Transactional
     public Item saveItem(Item item){
-        if(item.getCodigo()!=null) {
+        if (item.getId() != null){
+            item.setIsDeleted(null);
+        }else{
             item.setCodigo(repository.getNextInterval());
         }
+        System.out.println(item.getId());
         return repository.save(item);
     }
 

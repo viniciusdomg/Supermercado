@@ -11,12 +11,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import supermercado.web.premium.domain.Item;
+import supermercado.web.premium.domain.Usuario;
 import supermercado.web.premium.service.ItemCustomService;
+import supermercado.web.premium.service.UserDetailsServiceImpl;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/publico")
@@ -24,6 +27,8 @@ public class ClienteController {
 
     @Autowired
     ItemCustomService customService;
+    @Autowired
+    UserDetailsServiceImpl userService;
 
     @GetMapping(value = "/produtos")
     public String carregaItens(Model model, HttpServletResponse response, HttpSession session){
@@ -40,6 +45,24 @@ public class ClienteController {
         visitaCookie.setMaxAge(24 * 60 * 60);
         visitaCookie.setPath("/");
         response.addCookie(visitaCookie);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            Object principal = authentication.getPrincipal();
+            String username;
+            if (principal instanceof UserDetails) {
+                username = ((UserDetails) principal).getUsername();
+            } else {
+                username = principal.toString();
+            }
+            try {
+                Usuario usuario = userService.findByUsername(username);
+                model.addAttribute("usuario", usuario);
+            } catch (UsernameNotFoundException e) {
+                model.addAttribute("usuario", null);
+            }
+        } else {
+            model.addAttribute("usuario", null);
+        }
         return "principal";
     }
 
@@ -67,6 +90,24 @@ public class ClienteController {
             return "redirect:/publico/produtos";
         }
         model.addAttribute("carrinho", carrinho);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            Object principal = authentication.getPrincipal();
+            String username;
+            if (principal instanceof UserDetails) {
+                username = ((UserDetails) principal).getUsername();
+            } else {
+                username = principal.toString();
+            }
+            try {
+                Usuario usuario = userService.findByUsername(username);
+                model.addAttribute("usuario", usuario);
+            } catch (UsernameNotFoundException e) {
+                model.addAttribute("usuario", null);
+            }
+        } else {
+            model.addAttribute("usuario", null);
+        }
         return "Carrinho";
     }
     @GetMapping(value = "/removerCarrinho/{id}")
@@ -89,7 +130,7 @@ public class ClienteController {
 
     @GetMapping(value = "/finalizarCompra")
     public String finalizaCompra(HttpSession session){
-        session.invalidate();
+        session.removeAttribute("carrinho");
         return "redirect:/publico/produtos";
     }
 }

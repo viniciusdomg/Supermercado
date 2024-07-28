@@ -1192,8 +1192,8 @@ textarea.input {
   -webkit-transform: none;
   -ms-transform: none;
   transform: none;
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   display: inline-block !important;
   margin: 0px 2px;
 }

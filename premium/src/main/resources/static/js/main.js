@@ -13,14 +13,9 @@
 	});
 
 	/////////////////////////////////////////
-	var userType = 'admin'; // Pode ser 'user' ou 'admin'
 
 	// Mostrar ou ocultar a div com base no tipo de usuário
-	if (userType === 'admin') {
-		document.getElementById('admin-info').style.display = 'block';
-	} else {
-		document.getElementById('admin-info').style.display = 'none';
-	}
+
 
 	// Products Slick
 	$('.products-slick').each(function() {

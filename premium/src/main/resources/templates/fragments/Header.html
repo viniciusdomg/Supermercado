@@ -16,9 +16,18 @@
     <div id="top-header">
         <div class="container">
             <ul class="header-links pull-right">
-                <li><a href="#"><i class="fa fa-user-o"></i>Nome</a></li>
-                <a href="#"><img src="/img/Saida.svg" alt="Saida" /></a>
-                <li style="margin-left: 5px"><a href="#">Sair</a> </li>
+                <li th:if="${usuario != null}">
+                    <i class="fa fa-user-o"></i>
+                    <a th:text="${usuario.username}"></a>
+                </li>
+                <li style="margin-left: 5px;">
+                    <img src="/img/Saida.svg" alt="Saida" style="margin-right: 5px" />
+                    <a th:href="@{/logout}">Sair</a>
+                </li>
+                <li th:if="${usuario.isAdmin}" style="cursor: pointer">
+                    <i class="fa fa-list-ol"></i>
+                    <a th:href="@{/interno/produtos}">Verifica produtos</a>
+                </li>
             </ul>
         </div>
     </div>
